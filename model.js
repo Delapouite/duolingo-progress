@@ -1,0 +1,56 @@
+// prepare data
+
+// remove april fool
+delete data.languages['en-PI'];
+delete data.languages['xx-LC'];
+delete data.languages['xx-ZB'];
+
+var directions = {};
+data.directions.forEach(function(dir) {
+	var from = directions[dir.from_language_id];
+	if (!from) {
+		from = {};
+	}
+	from[dir.learning_language_id] = dir;
+	directions[dir.from_language_id] = from;
+});
+
+// total xp per lang
+var tos = {};
+Object.keys(delapouite).forEach(function(from) {
+	Object.keys(delapouite[from]).forEach(function(to) {
+		var dela = delapouite[from][to];
+		var dir = directions[from][to];
+		if (!tos[to]) {
+			tos[to] = 0;
+		}
+		if (+tos[to] < dela.xp) {
+			tos[to] = dela.xp;
+		}
+		dir.finished = dela.finished;
+		dir.total = dela.total;
+		dir.gold = dela.gold;
+		dir.words = dela.words;
+		dir.date = dela.date;
+	});
+});
+
+// reorder languages
+var languages = Object.keys(data.languages);
+languages.sort(function(a, b) {
+	var aLength = directions[a] ? Object.keys(directions[a]).length : 0;
+	var bLength = directions[b] ? Object.keys(directions[b]).length : 0;
+	var aXp = tos[a] ? tos[a] : 0;
+	var bXp = tos[b] ? tos[b] : 0;
+	return (aLength * 1e6 + aXp) - (bLength * 1e6 + bXp);
+});
+languages.reverse();
+var totalCombos = languages.length * (languages.length - 1);
+
+var phases = {
+	1: 0,
+	2: 0,
+	3: 0,
+	4: 0
+};
+

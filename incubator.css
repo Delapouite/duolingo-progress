@@ -1,0 +1,188 @@
+body {
+	background: white;
+	color: #333;
+	font-family: sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+}
+tr:nth-child(even) {
+	background: rgba(0, 0, 0, 0.05);
+}
+td {
+	text-align: center;
+	padding: 0;
+}
+td:nth-child(odd) {
+	background: rgba(0, 0, 0, 0.05);
+}
+th {
+	background: white;
+	height: 66px;
+	width: 66px;
+}
+td a {
+	color: white;
+	display: block;
+	text-decoration: none;
+}
+.flag {
+	background-image: url(flags.svg);
+	background-size: 1120px auto;
+	height: 88px;
+	width: 88px;
+}
+.phase1 {
+	background: #e34335 !important;
+	color: white;
+}
+.phase2 {
+	background: #ff8a1c !important;
+	color: white;
+}
+.phase3 {
+	background: #7AC70C !important;
+	color: white;
+}
+.phase4 {
+	background: #FFC200 !important;
+	color: white;
+}
+.impossible {
+	background: #999 !important;
+}
+.highlighted {
+	background: #1493D1 !important;
+}
+.legend {
+	display: inline-block;
+	padding: 3px;
+	width: 19%;
+}
+
+.bar {
+	display: inline-block;
+	height: 16px;
+}
+
+.progress {
+	background: white;
+	color: #333;
+	margin: 2px;
+	padding: 2px 0;
+}
+
+.flag-fr{
+	background-position:0 0
+}
+
+.flag-es{
+	background-position:-112px 0
+}
+
+.flag-de{
+	background-position:-224px 0
+}
+
+.flag-pt{
+	background-position:-336px 0
+}
+
+.flag-it{
+	background-position:-448px 0
+}
+
+.flag-en{
+	background-position:-560px 0
+}
+
+.flag-ga{
+	background-position:-672px 0
+}
+
+.flag-hu{
+	background-position:-784px 0
+}
+
+.flag-ru{
+	background-position:-896px 0
+}
+
+.flag-pl{
+	background-position:-1008px 0
+}
+
+.flag-ro{
+	background-position:0 -224px
+}
+
+.flag-nl-NL{
+	background-position:-112px -224px
+}
+
+.flag-tr{
+	background-position:-224px -224px
+}
+
+.flag-id{
+	background-position:-336px -224px
+}
+
+.flag-ja{
+	background-position:-448px -224px
+}
+
+.flag-uk{
+	background-position:-560px -224px
+}
+
+.flag-zh-TW{
+	background-position:-672px -224px
+}
+
+.flag-el{
+	background-position:-784px -224px
+}
+
+.flag-bn{
+	background-position:-896px -224px
+}
+
+.flag-ar{
+	background-position:-1008px -224px
+}
+
+.flag-hi{
+	background-position:0 -448px
+}
+
+.flag-he{
+	background-position:-112px -448px
+}
+
+.flag-ko{
+	background-position:-224px -448px
+}
+
+.flag-vi{
+	background-position:-336px -448px
+}
+
+.flag-sv{
+	background-position:-448px -448px
+}
+
+.flag-zh-CN{
+	background-position:-560px -448px
+}
+
+.flag-cs{
+	background-position:-672px -448px
+}
+
+.flag-th{
+	background-position:-784px -448px
+}
+
+.flag-un{
+	background-position:-896px -448px
+}
