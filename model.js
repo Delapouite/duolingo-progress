@@ -5,6 +5,14 @@ delete data.languages['en-PI'];
 delete data.languages['xx-LC'];
 delete data.languages['xx-ZB'];
 
+var phases = {
+	1: 0,
+	2: 0,
+	3: 0,
+	// phase 4 is a finished tree
+	4: 0
+};
+
 var directions = {};
 data.directions.forEach(function(dir) {
 	var from = directions[dir.from_language_id];
@@ -13,6 +21,7 @@ data.directions.forEach(function(dir) {
 	}
 	from[dir.learning_language_id] = dir;
 	directions[dir.from_language_id] = from;
+	phases[dir.phase] += 1;
 });
 
 // total xp per lang
@@ -32,6 +41,9 @@ Object.keys(delapouite).forEach(function(from) {
 		dir.gold = dela.gold;
 		dir.words = dela.words;
 		dir.date = dela.date;
+		if (dir.finished === dir.total) {
+			phases[4] += 1;
+		}
 	});
 });
 
@@ -45,12 +57,7 @@ languages.sort(function(a, b) {
 	return (aLength * 1e6 + aXp) - (bLength * 1e6 + bXp);
 });
 languages.reverse();
+
 var totalCombos = languages.length * (languages.length - 1);
 
-var phases = {
-	1: 0,
-	2: 0,
-	3: 0,
-	4: 0
-};
 

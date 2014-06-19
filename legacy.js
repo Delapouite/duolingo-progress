@@ -25,7 +25,6 @@ var createCell = function(from, to) {
 	} else if (directions[from] && directions[from][to]) {
 		var dir = directions[from][to];
 		cell.className = 'phase' + dir.phase;
-		phases[dir.phase] += 1;
 		var content = '';
 		if (dir.phase === 1) {
 			content = 2 * Math.round(dir.progress) + '%<br>';
@@ -38,7 +37,6 @@ var createCell = function(from, to) {
 		if (p) {
 			if (p.finished === p.total) {
 				cell.className = 'phase4';
-				phases[4] += 1;
 			}
 			content += p.finished + '/' + p.total + '<br>';
 			content += p.words + 'w<br>';
@@ -112,6 +110,7 @@ table.addEventListener('mouseover', function(evt) {
 	couple.classList.add('highlighted');
 });
 
+// progress bars
 Object.keys(delapouite).forEach(function(from) {
 	Object.keys(delapouite[from]).forEach(function(to) {
 		var p = delapouite[from][to];
