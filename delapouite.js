@@ -3,36 +3,36 @@ var delapouite = {
         "en": {
             "finished": 58,
             "total": 58,
-            "gold": 7,
-            "xp": "17666",
-            "words": "1397",
-            "date": 1401306322122
+            "gold": 8,
+            "xp": "17986",
+            "words": "1422",
+            "date": 1402515574504
         },
         "es": {
-            "finished": 20,
+            "finished": 29,
             "total": 64,
-            "gold": 18,
-            "xp": "7620",
-            "words": "396",
-            "date": 1401306342933
+            "gold": 6,
+            "xp": "8754",
+            "words": "831",
+            "date": 1403725408543
         }
     },
     "en": {
         "es": {
-            "finished": 64,
+            "finished": 65,
             "total": 67,
-            "gold": 0,
-            "xp": "7620",
-            "words": "0",
-            "date": 1401306394725
+            "gold": 1,
+            "xp": "8160",
+            "words": "1573",
+            "date": 1401827181132
         },
         "fr": {
             "finished": 71,
             "total": 71,
-            "gold": 0,
-            "xp": "9735",
-            "words": "0",
-            "date": 1401306415604
+            "gold": 1,
+            "xp": "10201",
+            "words": "1866",
+            "date": 1403725365618
         },
         "de": {
             "finished": 41,
@@ -46,17 +46,17 @@ var delapouite = {
             "finished": 27,
             "total": 69,
             "gold": 2,
-            "xp": "1532",
+            "xp": "1662",
             "words": "0",
-            "date": 1401306625926
+            "date": 1403717675035
         },
         "pt": {
             "finished": 72,
             "total": 72,
             "gold": 0,
-            "xp": "7122",
+            "xp": "7146",
             "words": "1950",
-            "date": 1401306446798
+            "date": 1402300693173
         }
     },
     "es": {
@@ -69,20 +69,20 @@ var delapouite = {
             "date": 1401306531536
         },
         "fr": {
-            "finished": 34,
+            "finished": 36,
             "total": 68,
             "gold": 0,
-            "xp": "9735",
-            "words": "1094",
-            "date": 1401306551434
+            "xp": "10185",
+            "words": "1151",
+            "date": 1403630099894
         },
         "pt": {
             "finished": 18,
             "total": 69,
-            "gold": 7,
-            "xp": "7122",
-            "words": "410",
-            "date": 1401306572382
+            "gold": 3,
+            "xp": "7146",
+            "words": "424",
+            "date": 1402145494594
         },
         "de": {
             "finished": 3,
