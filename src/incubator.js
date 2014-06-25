@@ -235,5 +235,5 @@ var Grid = React.createClass({
 
 React.renderComponent(
 	<Grid langs={languages} dirs={directions} xps={tos} combos={data.directions} phases={phases}/>,
-	document.getElementById('next')
+	document.body
 );
