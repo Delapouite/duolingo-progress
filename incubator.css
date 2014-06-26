@@ -58,7 +58,10 @@ td a {
 	padding: 3px;
 	width: 19%;
 }
-
+.gold {
+	background: #FFC200;
+	color: #222;
+}
 .bar {
 	display: inline-block;
 	height: 16px;

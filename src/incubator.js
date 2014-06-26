@@ -14,11 +14,11 @@ var Skills = React.createClass({
 			return <div className="skills"></div>
 		}
 		var date = new Date(this.props.date);
-		date = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+		date = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 
 		var gold = this.props.gold;
 		var finished = this.props.finished;
-		var color = total == finished ? '#BBB' : '#999';
+		var color = total == finished ? '#1493D1' : '#999';
 
 		var goldP = Math.floor(gold / total * 100);
 		var finishedP = Math.floor(finished / total * 100);
@@ -29,9 +29,11 @@ var Skills = React.createClass({
 			backgroundImage: 'linear-gradient(to right, ' + goldS + ', ' + finishedS +', transparent 100%)',
 			height: '12px'
 		};
+
+		gold = gold ? (<span className="gold">{gold}</span>) : '';
 		return (
 			<div className="skills">
-				{finished}/{total} ({gold})
+				{gold} {finished} / {total}
 				<div className="progress" style={styles}>
 					{date}
 				</div>
