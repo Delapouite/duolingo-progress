@@ -66,12 +66,14 @@ td a {
 	display: inline-block;
 	height: 16px;
 }
-
 .progress {
 	background: white;
 	color: #333;
 	margin: 2px;
 	padding: 2px 0;
+}
+.total-xp {
+	margin-top: 1em;
 }
 
 .flag-fr{

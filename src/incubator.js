@@ -1,8 +1,16 @@
 /** @jsx React.DOM */
 var CornerCell = React.createClass({
-	render: function() {
+	render: function() {var totalXp = 0;
+		var totalXp = 0;
+		Object.keys(tos).forEach(function(country) {
+			totalXp += +tos[country];
+		});
 		return (
-			<th>To ><br/>From</th>
+			<th>
+				<div>To ></div>
+				<div>From</div>
+				<div className="total-xp">{totalXp} XP</div>
+			</th>
 		);
 	}
 });
@@ -165,7 +173,7 @@ var FlagsRow = React.createClass({
 		});
 		return (
 			<tr className="flags-row">
-				<CornerCell />
+				<CornerCell xps={this.props.xps}/>
 				{flagCells}
 			</tr>
 		);
