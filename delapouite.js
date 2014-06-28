@@ -9,12 +9,12 @@ var delapouite = {
             "date": 1402515574504
         },
         "es": {
-            "finished": 29,
+            "finished": 30,
             "total": 64,
-            "gold": 6,
-            "xp": "8754",
-            "words": "831",
-            "date": 1403725408543
+            "gold": 10,
+            "xp": "8836",
+            "words": "856",
+            "date": 1403804836509
         }
     },
     "en": {
@@ -22,9 +22,9 @@ var delapouite = {
             "finished": 65,
             "total": 67,
             "gold": 1,
-            "xp": "8160",
-            "words": "1573",
-            "date": 1401827181132
+            "xp": "8875",
+            "words": "1583",
+            "date": 1403950147545
         },
         "fr": {
             "finished": 71,
@@ -48,7 +48,7 @@ var delapouite = {
             "gold": 2,
             "xp": "1662",
             "words": "0",
-            "date": 1403717675035
+            "date": 1403726063308
         },
         "pt": {
             "finished": 72,
@@ -61,20 +61,20 @@ var delapouite = {
     },
     "es": {
         "en": {
-            "finished": 55,
+            "finished": 58,
             "total": 58,
-            "gold": 0,
-            "xp": "17666",
-            "words": "1397",
-            "date": 1401306531536
+            "gold": 4,
+            "xp": "18278",
+            "words": "1422",
+            "date": 1403953084183
         },
         "fr": {
             "finished": 36,
             "total": 68,
             "gold": 0,
-            "xp": "10185",
+            "xp": "10201",
             "words": "1151",
-            "date": 1403630099894
+            "date": 1403953048182
         },
         "pt": {
             "finished": 18,
@@ -139,4 +139,4 @@ var delapouite = {
             "date": 1401306262820
         }
     }
-}
+};
