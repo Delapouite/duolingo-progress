@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 var CornerCell = React.createClass({
-	render: function() {var totalXp = 0;
+	render: function() {
 		var totalXp = 0;
 		Object.keys(tos).forEach(function(country) {
 			totalXp += +tos[country];
@@ -26,7 +26,7 @@ var Skills = React.createClass({
 
 		var gold = this.props.gold;
 		var finished = this.props.finished;
-		var color = total == finished ? '#1493D1' : '#999';
+		var color = total == finished ? '#1493D1' : '#1493D1';
 
 		var goldP = Math.floor(gold / total * 100);
 		var finishedP = Math.floor(finished / total * 100);
@@ -41,10 +41,9 @@ var Skills = React.createClass({
 		gold = gold ? (<span className="gold">{gold}</span>) : '';
 		return (
 			<div className="skills">
-				{gold} {finished} / {total}
-				<div className="progress" style={styles}>
-					{date}
+				<div className="progress" style={styles} title={date}>
 				</div>
+				{gold} {finished} / {total}
 			</div>
 		);
 	}
@@ -105,8 +104,7 @@ var Cell = React.createClass({
 		var to = this.props.to;
 		var dir = this.props.dir || {};
 
-		// TODO use classSet()
-		var className;
+		var className = '';
 		if (from == to) {
 			className = 'impossible';
 		} else if (dir.phase) {
@@ -114,6 +112,9 @@ var Cell = React.createClass({
 		}
 		if (this.state.highlighted) {
 			className += ' highlighted';
+		}
+		if (dir.finished && dir.finished === dir.total) {
+			className += ' owl owl-' + to;
 		}
 
 		var percentage;

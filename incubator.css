@@ -6,14 +6,14 @@ body {
 	font-weight: bold;
 }
 tr:nth-child(even) {
-	background: rgba(0, 0, 0, 0.05);
+	background-color: rgba(0, 0, 0, 0.05);
 }
 td {
 	text-align: center;
 	padding: 0;
 }
 td:nth-child(odd) {
-	background: rgba(0, 0, 0, 0.05);
+	background-color: rgba(0, 0, 0, 0.05);
 }
 th {
 	background: white;
@@ -21,37 +21,29 @@ th {
 	width: 66px;
 }
 td a {
-	color: white;
+	background: rgba(255, 255, 255, 0.5);
+	color: #222;
 	display: block;
+	margin: 0 1em;
 	text-decoration: none;
 }
-.flag {
-	background-image: url(flags.svg);
-	background-size: 1120px auto;
-	height: 88px;
-	width: 88px;
-}
 .phase1 {
-	background: #e34335 !important;
-	color: white;
+	background-color: #e34335 !important;
 }
 .phase2 {
-	background: #ff8a1c !important;
-	color: white;
+	background-color: #ff8a1c !important;
 }
 .phase3 {
-	background: #7AC70C !important;
-	color: white;
+	background-color: #7AC70C !important;
 }
 .phase4 {
-	background: #FFC200 !important;
-	color: white;
+	background-color: #FFC200 !important;
 }
 .impossible {
 	background: #999 !important;
 }
 .highlighted {
-	background: #1493D1 !important;
+	background-color: #1493D1 !important;
 }
 .legend {
 	display: inline-block;
@@ -60,7 +52,6 @@ td a {
 }
 .gold {
 	background: #FFC200;
-	color: #222;
 }
 .bar {
 	display: inline-block;
@@ -75,123 +66,123 @@ td a {
 .total-xp {
 	margin-top: 1em;
 }
-
+/* imported */
+.flag {
+	background-image: url(flags.svg);
+	background-size: 1120px auto;
+	height: 88px;
+	width: 88px;
+}
 .flag-fr{
 	background-position:0 0
 }
-
 .flag-es{
 	background-position:-112px 0
 }
-
 .flag-de{
 	background-position:-224px 0
 }
-
 .flag-pt{
 	background-position:-336px 0
 }
-
 .flag-it{
 	background-position:-448px 0
 }
-
 .flag-en{
 	background-position:-560px 0
 }
-
 .flag-ga{
 	background-position:-672px 0
 }
-
 .flag-hu{
 	background-position:-784px 0
 }
-
 .flag-ru{
 	background-position:-896px 0
 }
-
 .flag-pl{
 	background-position:-1008px 0
 }
-
 .flag-ro{
 	background-position:0 -224px
 }
-
 .flag-nl-NL{
 	background-position:-112px -224px
 }
-
 .flag-tr{
 	background-position:-224px -224px
 }
-
 .flag-id{
 	background-position:-336px -224px
 }
-
 .flag-ja{
 	background-position:-448px -224px
 }
-
 .flag-uk{
 	background-position:-560px -224px
 }
-
 .flag-zh-TW{
 	background-position:-672px -224px
 }
-
 .flag-el{
 	background-position:-784px -224px
 }
-
 .flag-bn{
 	background-position:-896px -224px
 }
-
 .flag-ar{
 	background-position:-1008px -224px
 }
-
 .flag-hi{
 	background-position:0 -448px
 }
-
 .flag-he{
 	background-position:-112px -448px
 }
-
 .flag-ko{
 	background-position:-224px -448px
 }
-
 .flag-vi{
 	background-position:-336px -448px
 }
-
 .flag-sv{
 	background-position:-448px -448px
 }
-
 .flag-zh-CN{
 	background-position:-560px -448px
 }
-
 .flag-cs{
 	background-position:-672px -448px
 }
-
 .flag-th{
 	background-position:-784px -448px
 }
-
 .flag-un{
 	background-position:-896px -448px
 }
-
 .flag-da{
 	background-position:-112px -672px
+}
+.owl {
+	background-image: url(owls.svg);
+	background-position: 50px;
+	background-size: 1000px auto;
+}
+.owl-it {
+	background-position: -150px -300px;
+}
+.owl-en {
+	background-position: -300px -300px;
+}
+.owl-de {
+	background-position: -450px -300px;
+}
+.owl-es {
+	background-position: -600px -300px;
+}
+.owl-pt {
+	background-position: -750px -300px;
+}
+.owl-fr {
+	background-position: -1000px -450px;
 }
