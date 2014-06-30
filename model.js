@@ -26,6 +26,7 @@ data.directions.forEach(function(dir) {
 
 // total xp per lang
 var tos = {};
+var levels = {};
 Object.keys(delapouite).forEach(function(from) {
 	Object.keys(delapouite[from]).forEach(function(to) {
 		var dela = delapouite[from][to];
@@ -36,6 +37,14 @@ Object.keys(delapouite).forEach(function(from) {
 		if (+tos[to] < dela.xp) {
 			tos[to] = dela.xp;
 		}
+		if (dela.currentLevel) {
+			levels[to] = {
+				current: dela.currentLevel,
+				currentXp: dela.levelProgress.split('/')[0],
+				ceilXp: dela.levelProgress.split('/')[1]
+			}
+		}
+
 		dir.finished = dela.finished;
 		dir.total = dela.total;
 		dir.gold = dela.gold;

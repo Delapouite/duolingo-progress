@@ -3,10 +3,12 @@ var delapouite = {
         "en": {
             "finished": 58,
             "total": 58,
-            "gold": 8,
-            "xp": "17986",
+            "gold": 7,
+            "xp": "18278",
             "words": "1422",
-            "date": 1402515574504
+            "currentLevel": "21",
+            "levelProgress": "1278/2000",
+            "date": 1404150826289
         },
         "es": {
             "finished": 30,
@@ -19,12 +21,14 @@ var delapouite = {
     },
     "en": {
         "es": {
-            "finished": 65,
+            "finished": 67,
             "total": 67,
-            "gold": 1,
-            "xp": "8875",
-            "words": "1583",
-            "date": 1403950147545
+            "gold": 3,
+            "xp": "9013",
+            "words": "1586",
+            "currentLevel": "16",
+            "levelProgress": "13/1500",
+            "date": 1404150216141
         },
         "fr": {
             "finished": 71,
@@ -32,41 +36,49 @@ var delapouite = {
             "gold": 1,
             "xp": "10201",
             "words": "1866",
-            "date": 1403725365618
+            "currentLevel": "16",
+            "levelProgress": "1201/1500",
+            "date": 1404150232139
         },
         "de": {
-            "finished": 41,
+            "finished": 37,
             "total": 75,
             "gold": 0,
             "xp": "6186",
             "words": "922",
-            "date": 1401306467433
+            "currentLevel": "14",
+            "levelProgress": "186/1500",
+            "date": 1404150663085
         },
         "it": {
             "finished": 27,
             "total": 69,
-            "gold": 2,
-            "xp": "1662",
-            "words": "0",
-            "date": 1403726063308
+            "gold": 6,
+            "xp": "1742",
+            "words": "780",
+            "currentLevel": "9",
+            "levelProgress": "92/600",
+            "date": 1404149963203
         },
         "pt": {
             "finished": 72,
             "total": 72,
             "gold": 0,
-            "xp": "7146",
-            "words": "1950",
-            "date": 1402300693173
+            "xp": "7154",
+            "words": "...",
+            "currentLevel": "14",
+            "levelProgress": "1154/1500",
+            "date": 1404150792480
         }
     },
     "es": {
         "en": {
             "finished": 58,
             "total": 58,
-            "gold": 4,
+            "gold": 3,
             "xp": "18278",
             "words": "1422",
-            "date": 1403953084183
+            "date": 1404063185412
         },
         "fr": {
             "finished": 36,
@@ -139,4 +151,4 @@ var delapouite = {
             "date": 1401306262820
         }
     }
-};
+}

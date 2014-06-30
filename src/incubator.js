@@ -157,10 +157,13 @@ var FlagCell = React.createClass({
 var TopFlagCell = React.createClass({
 	render: function() {
 		var lang = this.props.lang;
+		var level = this.props.level || {};
 		return (
 			<th>
 				<div className={'flag flag-' + lang} title={lang}></div>
 				<div>{this.props.xp} XP</div>
+				<div>Level {level.current}</div>
+				<div>{level.currentXp}/{level.ceilXp}</div>
 			</th>
 		);
 	}
@@ -169,8 +172,9 @@ var TopFlagCell = React.createClass({
 var FlagsRow = React.createClass({
 	render: function() {
 		var xps = this.props.xps;
+		var levels = this.props.levels;
 		var flagCells = this.props.langs.map(function(lang) {
-			return <TopFlagCell key={lang} lang={lang} xp={xps[lang]}/>
+			return <TopFlagCell key={lang} lang={lang} xp={xps[lang]} level={levels[lang]}/>
 		});
 		return (
 			<tr className="flags-row">
@@ -234,7 +238,7 @@ var Grid = React.createClass({
 		return (
 			<div>
 				<table>
-					<FlagsRow langs={langs} xps={this.props.xps}/>
+					<FlagsRow langs={langs} xps={this.props.xps} levels={this.props.levels}/>
 					{rows}
 				</table>
 				<GridLegend langs={langs} dirs={dirs} combos={this.props.combos}/>
@@ -245,6 +249,6 @@ var Grid = React.createClass({
 });
 
 React.renderComponent(
-	<Grid langs={languages} dirs={directions} xps={tos} combos={data.directions} phases={phases}/>,
+	<Grid langs={languages} dirs={directions} xps={tos} levels={levels} combos={data.directions} phases={phases}/>,
 	document.body
 );
