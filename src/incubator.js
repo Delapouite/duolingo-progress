@@ -2,8 +2,9 @@
 var CornerCell = React.createClass({
 	render: function() {
 		var totalXp = 0;
+		var tos = this.props.tos;
 		Object.keys(tos).forEach(function(country) {
-			totalXp += +tos[country];
+			totalXp += +tos[country].totalXp;
 		});
 		return (
 			<th>
@@ -157,13 +158,22 @@ var FlagCell = React.createClass({
 var TopFlagCell = React.createClass({
 	render: function() {
 		var lang = this.props.lang;
-		var level = this.props.level || {};
+		var to = {}
+		var percent = 0;
+		if (this.props.to) {
+			to = this.props.to;
+			percent = Math.floor(to.currentXp / to.ceilXp * 100);
+		}
+		var style = {
+			backgroundImage: 'linear-gradient(to right, #FFC200 0%, #FFC200 ' + percent + '%, transparent ' + (percent)+ '%, transparent 100%)',
+		};
+
 		return (
 			<th>
 				<div className={'flag flag-' + lang} title={lang}></div>
-				<div>{this.props.xp} XP</div>
-				<div>Level {level.current}</div>
-				<div>{level.currentXp}/{level.ceilXp}</div>
+				<div>{to.totalXp} XP</div>
+				<div>Level {to.currentLevel}</div>
+				<div className="progress" style={style}>{to.currentXp}/{to.ceilXp}</div>
 			</th>
 		);
 	}
@@ -171,14 +181,13 @@ var TopFlagCell = React.createClass({
 
 var FlagsRow = React.createClass({
 	render: function() {
-		var xps = this.props.xps;
-		var levels = this.props.levels;
+		var tos = this.props.tos;
 		var flagCells = this.props.langs.map(function(lang) {
-			return <TopFlagCell key={lang} lang={lang} xp={xps[lang]} level={levels[lang]}/>
+			return <TopFlagCell key={lang} lang={lang} to={tos[lang]}/>
 		});
 		return (
 			<tr className="flags-row">
-				<CornerCell xps={this.props.xps}/>
+				<CornerCell tos={tos}/>
 				{flagCells}
 			</tr>
 		);
@@ -238,7 +247,7 @@ var Grid = React.createClass({
 		return (
 			<div>
 				<table>
-					<FlagsRow langs={langs} xps={this.props.xps} levels={this.props.levels}/>
+					<FlagsRow langs={langs} tos={this.props.tos} levels={this.props.levels}/>
 					{rows}
 				</table>
 				<GridLegend langs={langs} dirs={dirs} combos={this.props.combos}/>
@@ -249,6 +258,6 @@ var Grid = React.createClass({
 });
 
 React.renderComponent(
-	<Grid langs={languages} dirs={directions} xps={tos} levels={levels} combos={data.directions} phases={phases}/>,
+	<Grid langs={languages} dirs={directions} tos={tos} combos={data.directions} phases={phases}/>,
 	document.body
 );

@@ -24,25 +24,27 @@ data.directions.forEach(function(dir) {
 	phases[dir.phase] += 1;
 });
 
-// total xp per lang
+// total xp and levels per lang
 var tos = {};
-var levels = {};
 Object.keys(delapouite).forEach(function(from) {
 	Object.keys(delapouite[from]).forEach(function(to) {
 		var dela = delapouite[from][to];
 		var dir = directions[from][to];
 		if (!tos[to]) {
-			tos[to] = 0;
+			tos[to] = {
+				totalXp: 0,
+				currentXp: 0,
+				ceilXp: 0,
+				currentLevel: 0
+			};
 		}
-		if (+tos[to] < dela.xp) {
-			tos[to] = dela.xp;
+		if (+tos[to].totalXp < dela.xp) {
+			tos[to].totalXp = dela.xp;
 		}
 		if (dela.currentLevel) {
-			levels[to] = {
-				current: dela.currentLevel,
-				currentXp: dela.levelProgress.split('/')[0],
-				ceilXp: dela.levelProgress.split('/')[1]
-			}
+			tos[to].currentXp = dela.levelProgress.split('/')[0];
+			tos[to].ceilXp = dela.levelProgress.split('/')[1];
+			tos[to].currentLevel = dela.currentLevel;
 		}
 
 		dir.finished = dela.finished;
@@ -61,12 +63,10 @@ var languages = Object.keys(data.languages);
 languages.sort(function(a, b) {
 	var aLength = directions[a] ? Object.keys(directions[a]).length : 0;
 	var bLength = directions[b] ? Object.keys(directions[b]).length : 0;
-	var aXp = tos[a] ? tos[a] : 0;
-	var bXp = tos[b] ? tos[b] : 0;
+	var aXp = tos[a] && tos[a].totalXp ? tos[a].totalXp : 0;
+	var bXp = tos[b] && tos[b].totalXp ? tos[b].totalXp : 0;
 	return (aLength * 1e6 + aXp) - (bLength * 1e6 + bXp);
 });
 languages.reverse();
 
 var totalCombos = languages.length * (languages.length - 1);
-
-
