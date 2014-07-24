@@ -11,12 +11,14 @@ var delapouite = {
             "date": 1404150826289
         },
         "es": {
-            "finished": 30,
+            "finished": 32,
             "total": 64,
-            "gold": 10,
-            "xp": "8836",
-            "words": "856",
-            "date": 1403804836509
+            "gold": 11,
+            "xp": "9132",
+            "words": "871",
+            "currentLevel": "16",
+            "levelProgress": "132/1500",
+            "date": 1406226778007
         }
     },
     "en": {
@@ -53,12 +55,12 @@ var delapouite = {
         "it": {
             "finished": 27,
             "total": 69,
-            "gold": 6,
-            "xp": "1742",
-            "words": "780",
-            "currentLevel": "9",
-            "levelProgress": "92/600",
-            "date": 1404149963203
+            "gold": 17,
+            "xp": "2258",
+            "words": "788",
+            "currentLevel": "10",
+            "levelProgress": "8/750",
+            "date": 1405013793893
         },
         "pt": {
             "finished": 72,
@@ -81,12 +83,14 @@ var delapouite = {
             "date": 1404063185412
         },
         "fr": {
-            "finished": 36,
+            "finished": 40,
             "total": 68,
-            "gold": 0,
-            "xp": "10201",
-            "words": "1151",
-            "date": 1403953048182
+            "gold": 14,
+            "xp": "10683",
+            "words": "1229",
+            "currentLevel": "17",
+            "levelProgress": "183/1500",
+            "date": 1406226847993
         },
         "pt": {
             "finished": 18,
@@ -151,4 +155,4 @@ var delapouite = {
             "date": 1401306262820
         }
     }
-}
+};
