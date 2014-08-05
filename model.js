@@ -5,23 +5,36 @@ delete data.languages['en-PI'];
 delete data.languages['xx-LC'];
 delete data.languages['xx-ZB'];
 
-var phases = {
-	1: 0,
-	2: 0,
-	3: 0,
-	// phase 4 is a finished tree
-	4: 0
+// main counter
+var total = {
+	coursesCount: 0,
+	phases: {
+		1: 0,
+		2: 0,
+		3: 0,
+		// phase 4 is a finished tree
+		4: 0
+	},
+	xp: 0,
+	// skills
+	finished: 0,
+	total: 0,
+	gold: 0
 };
 
-var directions = {};
+// data from duo incubator
+var courses = {};
 data.directions.forEach(function(dir) {
-	var from = directions[dir.from_language_id];
-	if (!from) {
-		from = {};
+	var from = dir.from_language_id;
+	var to = dir.learning_language_id;
+
+	var fromCourses = courses[from];
+	if (!fromCourses) {
+		fromCourses = {};
 	}
-	from[dir.learning_language_id] = dir;
-	directions[dir.from_language_id] = from;
-	phases[dir.phase] += 1;
+	fromCourses[to] = dir;
+	courses[from] = fromCourses;
+	total.phases[dir.phase] += 1;
 });
 
 // total xp and levels per lang
@@ -29,7 +42,7 @@ var tos = {};
 Object.keys(delapouite).forEach(function(from) {
 	Object.keys(delapouite[from]).forEach(function(to) {
 		var dela = delapouite[from][to];
-		var dir = directions[from][to];
+		var course = courses[from][to];
 		if (!tos[to]) {
 			tos[to] = {
 				totalXp: 0,
@@ -37,6 +50,7 @@ Object.keys(delapouite).forEach(function(from) {
 				ceilXp: 0,
 				currentLevel: 0
 			};
+			total.xp += +dela.xp;
 		}
 		if (+tos[to].totalXp < dela.xp) {
 			tos[to].totalXp = dela.xp;
@@ -47,26 +61,32 @@ Object.keys(delapouite).forEach(function(from) {
 			tos[to].currentLevel = dela.currentLevel;
 		}
 
-		dir.finished = dela.finished;
-		dir.total = dela.total;
-		dir.gold = dela.gold;
-		dir.words = dela.words;
-		dir.date = dela.date;
-		if (dir.finished === dir.total) {
-			phases[4] += 1;
+		// augment course
+		course.finished = dela.finished;
+		course.total = dela.total;
+		course.gold = dela.gold;
+		course.words = dela.words;
+		course.date = dela.date;
+
+		// augment total
+		if (course.finished === course.total) {
+			total.phases[4] += 1;
 		}
+		total.finished += dela.finished;
+		total.total += dela.total;
+		total.gold += dela.gold;
 	});
 });
 
 // reorder languages
 var languages = Object.keys(data.languages);
 languages.sort(function(a, b) {
-	var aLength = directions[a] ? Object.keys(directions[a]).length : 0;
-	var bLength = directions[b] ? Object.keys(directions[b]).length : 0;
+	var aLength = courses[a] ? Object.keys(courses[a]).length : 0;
+	var bLength = courses[b] ? Object.keys(courses[b]).length : 0;
 	var aXp = tos[a] && tos[a].totalXp ? tos[a].totalXp : 0;
 	var bXp = tos[b] && tos[b].totalXp ? tos[b].totalXp : 0;
 	return (aLength * 1e6 + aXp) - (bLength * 1e6 + bXp);
 });
 languages.reverse();
 
-var totalCombos = languages.length * (languages.length - 1);
+total.coursesCount = languages.length * (languages.length - 1);

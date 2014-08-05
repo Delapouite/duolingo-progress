@@ -1,16 +1,13 @@
 /** @jsx React.DOM */
 var CornerCell = React.createClass({
 	render: function() {
-		var totalXp = 0;
-		var tos = this.props.tos;
-		Object.keys(tos).forEach(function(country) {
-			totalXp += +tos[country].totalXp;
-		});
+		var total = this.props.total;
 		return (
 			<th>
 				<div>To ></div>
 				<div>From</div>
-				<div className="total-xp">{totalXp} XP</div>
+				<div className="total-xp">{total.xp} XP</div>
+				<Skills finished={total.finished} total={total.total} gold={total.gold} date={total.date}/>
 			</th>
 		);
 	}
@@ -22,8 +19,11 @@ var Skills = React.createClass({
 		if (!total) {
 			return <div className="skills"></div>
 		}
-		var date = new Date(this.props.date);
-		date = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+		var date = '';
+		if (this.props.date) {
+			date = new Date(this.props.date);
+			date = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+		}
 
 		var gold = this.props.gold;
 		var finished = this.props.finished;
@@ -42,7 +42,7 @@ var Skills = React.createClass({
 		gold = gold ? (<span className="gold">{gold}</span>) : '';
 		return (
 			<div className="skills">
-				<div className="progress" style={styles} title={date}>
+				<div className="progress" style={styles} title={date + ' ' + goldP + '% ' + finishedP + '%'}>
 				</div>
 				{gold} {finished} / {total}
 			</div>
@@ -103,32 +103,32 @@ var Cell = React.createClass({
 	render: function() {
 		var from = this.props.from;
 		var to = this.props.to;
-		var dir = this.props.dir || {};
+		var course = this.props.course || {};
 
 		var className = '';
 		if (from == to) {
 			className = 'impossible';
-		} else if (dir.phase) {
-			className = 'phase' + dir.phase;
+		} else if (course.phase) {
+			className = 'phase' + course.phase;
 		}
 		if (this.state.highlighted) {
 			className += ' highlighted';
 		}
-		if (dir.finished && dir.finished === dir.total) {
+		if (course.finished && course.finished === course.total) {
 			className += ' owl owl-' + to;
 		}
 
 		var percentage;
-		if (dir.phase === 1) {
-			percentage = <div className="percentage">{2 * Math.round(dir.progress)}%</div>
+		if (course.phase === 1) {
+			percentage = <div className="percentage">{2 * Math.round(course.progress)}%</div>
 		}
 		var learners;
-		if (dir.learner_count) {
-			learners = <div className="learners">{dir.learner_count.learner_string}</div>
+		if (course.learner_count) {
+			learners = <div className="learners">{course.learner_count.learner_string}</div>
 		}
 		var words;
-		if (dir.words) {
-			words = <div className="words">{dir.words}w</div>
+		if (course.words) {
+			words = <div className="words">{course.words}w</div>
 		}
 
 		return (
@@ -136,7 +136,7 @@ var Cell = React.createClass({
 				<a href={'http://incubator.duolingo.com/courses/' + to + '/' + from + '/status'}>
 					{percentage}
 					{learners}
-					<Skills finished={dir.finished} total={dir.total} gold={dir.gold} date={dir.date}/>
+					<Skills finished={course.finished} total={course.total} gold={course.gold} date={course.date}/>
 					{words}
 				</a>
 			</td>
@@ -187,7 +187,7 @@ var FlagsRow = React.createClass({
 		});
 		return (
 			<tr className="flags-row">
-				<CornerCell tos={tos}/>
+				<CornerCell total={this.props.total}/>
 				{flagCells}
 			</tr>
 		);
@@ -197,13 +197,13 @@ var FlagsRow = React.createClass({
 var Row = React.createClass({
 	render: function() {
 		var from = this.props.lang;
-		var dirs = this.props.dirs;
+		var courses = this.props.courses;
 		var cells = this.props.langs.map(function(to) {
-			var dir;
-			if (dirs[from] && dirs[from][to]) {
-				dir = dirs[from][to];
+			var course;
+			if (courses[from] && courses[from][to]) {
+				course = courses[from][to];
 			}
-			return <Cell key={from + to} from={from} to={to} dir={dir}/>
+			return <Cell key={from + to} from={from} to={to} course={course}/>
 		});
 		return (
 			<tr>
@@ -217,9 +217,9 @@ var Row = React.createClass({
 var GridLegend = React.createClass({
 	render: function() {
 		var courses = Object.keys(this.props.combos).length;
-		var total = this.props.langs.length * (this.props.langs.length - 1);
+		var coursesCount = this.props.total.coursesCount;
 		return (
-			<div className="legend">{courses}/{total} courses</div>
+			<div className="legend">{courses}/{coursesCount} courses</div>
 		);
 	}
 });
@@ -236,21 +236,21 @@ var Phase = React.createClass({
 var Grid = React.createClass({
 	render: function() {
 		var langs = this.props.langs;
-		var dirs = this.props.dirs;
+		var courses = this.props.courses;
 		var rows = langs.map(function(lang) {
-			return <Row key={lang} lang={lang} langs={langs} dirs={dirs}/>
+			return <Row key={lang} lang={lang} langs={langs} courses={courses}/>
 		});
-		var phasesD = this.props.phases;
+		var phasesD = this.props.total.phases;
 		var phases = Object.keys(phasesD).map(function(phase) {
 			return <Phase key={phase} phase={phase} courses={phasesD[phase]}/>
 		});
 		return (
 			<div>
 				<table>
-					<FlagsRow langs={langs} tos={this.props.tos} levels={this.props.levels}/>
+					<FlagsRow langs={langs} tos={this.props.tos} levels={this.props.levels} total={this.props.total}/>
 					{rows}
 				</table>
-				<GridLegend langs={langs} dirs={dirs} combos={this.props.combos}/>
+				<GridLegend langs={langs} courses={courses} combos={this.props.combos} total={this.props.total}/>
 				{phases}
 			</div>
 		);
@@ -258,6 +258,6 @@ var Grid = React.createClass({
 });
 
 React.renderComponent(
-	<Grid langs={languages} dirs={directions} tos={tos} combos={data.directions} phases={phases}/>,
+	<Grid langs={languages} courses={courses} tos={tos} combos={data.directions} total={total}/>,
 	document.body
 );
