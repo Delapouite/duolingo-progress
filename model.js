@@ -1,3 +1,4 @@
+/* global data, delapouite */
 // prepare data
 
 // remove april fool
@@ -7,6 +8,7 @@ delete data.languages['xx-ZB'];
 
 // main counter
 var total = {
+	releasedCourses: data.directions.length,
 	coursesCount: 0,
 	phases: {
 		1: 0,
@@ -78,15 +80,15 @@ Object.keys(delapouite).forEach(function(from) {
 	});
 });
 
-// reorder languages
-var languages = Object.keys(data.languages);
-languages.sort(function(a, b) {
+// reorder langs
+var langs = Object.keys(data.languages);
+langs.sort(function(a, b) {
 	var aLength = courses[a] ? Object.keys(courses[a]).length : 0;
 	var bLength = courses[b] ? Object.keys(courses[b]).length : 0;
 	var aXp = tos[a] && tos[a].totalXp ? tos[a].totalXp : 0;
 	var bXp = tos[b] && tos[b].totalXp ? tos[b].totalXp : 0;
 	return (aLength * 1e6 + aXp) - (bLength * 1e6 + bXp);
 });
-languages.reverse();
+langs.reverse();
 
-total.coursesCount = languages.length * (languages.length - 1);
+total.coursesCount = langs.length * (langs.length - 1);
