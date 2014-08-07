@@ -2,6 +2,7 @@
 var CornerCell = React.createClass({
 	render: function() {
 		var total = this.props.total;
+
 		return (
 			<th>
 				<div>To ></div>
@@ -19,6 +20,7 @@ var Skills = React.createClass({
 		if (!total) {
 			return <div className="skills"></div>
 		}
+
 		var date = '';
 		if (this.props.date) {
 			date = new Date(this.props.date);
@@ -27,23 +29,27 @@ var Skills = React.createClass({
 
 		var gold = this.props.gold;
 		var finished = this.props.finished;
+		// TODO
 		var color = total == finished ? '#1493D1' : '#1493D1';
 
+		// percentages
 		var goldP = Math.floor(gold / total * 100);
 		var finishedP = Math.floor(finished / total * 100);
 
+		// gradients
 		var goldS = '#FFC200 0%, #FFC200 ' + goldP + '%';
 		var finishedS = color + ' ' + goldP + '%, ' + color + ' ' + finishedP + '%, transparent ' + finishedP + '%';
+
 		var styles = {
-			backgroundImage: 'linear-gradient(to right, ' + goldS + ', ' + finishedS +', transparent 100%)',
+			backgroundImage: 'linear-gradient(to right, ' + goldS + ', ' + finishedS + ', transparent 100%)',
 			height: '12px'
 		};
 
 		gold = gold ? (<span className="gold">{gold}</span>) : '';
+
 		return (
 			<div className="skills">
-				<div className="progress" style={styles} title={date + ' ' + goldP + '% ' + finishedP + '%'}>
-				</div>
+				<div className="progress" style={styles} title={date + ' ' + goldP + '% ' + finishedP + '%'}/>
 				{gold} {finished} / {total}
 			</div>
 		);
@@ -147,9 +153,10 @@ var Cell = React.createClass({
 var FlagCell = React.createClass({
 	render: function() {
 		var lang = this.props.lang;
+
 		return (
 			<th>
-				<div className={'flag flag-' + lang} title={lang}></div>
+				<div className={'flag flag-' + lang} title={lang}/>
 			</th>
 		);
 	}
@@ -185,6 +192,7 @@ var FlagsRow = React.createClass({
 		var flagCells = this.props.langs.map(function(lang) {
 			return <TopFlagCell key={lang} lang={lang} to={tos[lang]}/>
 		});
+
 		return (
 			<tr className="flags-row">
 				<CornerCell total={this.props.total}/>
@@ -205,6 +213,7 @@ var Row = React.createClass({
 			}
 			return <Cell key={from + to} from={from} to={to} course={course}/>
 		});
+
 		return (
 			<tr>
 				<FlagCell lang={from}/>
@@ -216,48 +225,57 @@ var Row = React.createClass({
 
 var GridLegend = React.createClass({
 	render: function() {
-		var courses = Object.keys(this.props.combos).length;
-		var coursesCount = this.props.total.coursesCount;
+		var total = this.props.total;
+
 		return (
-			<div className="legend">{courses}/{coursesCount} courses</div>
+			<div className="legend">
+				{total.releasedCourses}/{total.coursesCount} courses
+			</div>
 		);
 	}
 });
 
+// below the grid
 var Phase = React.createClass({
 	render: function() {
-		var className = 'legend phase' + this.props.phase;
 		return (
-			<div className={className}>{this.props.courses} courses in phase {this.props.phase}</div>
+			<div className={'legend phase' + this.props.phase}>
+				{this.props.courses} courses in phase {this.props.phase}
+			</div>
 		);
 	}
 });
 
+// table + legend
 var Grid = React.createClass({
 	render: function() {
 		var langs = this.props.langs;
 		var courses = this.props.courses;
+		var total = this.props.total;
+
+		// children
 		var rows = langs.map(function(lang) {
 			return <Row key={lang} lang={lang} langs={langs} courses={courses}/>
 		});
-		var phasesD = this.props.total.phases;
-		var phases = Object.keys(phasesD).map(function(phase) {
-			return <Phase key={phase} phase={phase} courses={phasesD[phase]}/>
+		var phases = Object.keys(total.phases).map(function(phase) {
+			return <Phase key={phase} phase={phase} courses={total.phases[phase]}/>
 		});
+
 		return (
 			<div>
 				<table>
-					<FlagsRow langs={langs} tos={this.props.tos} levels={this.props.levels} total={this.props.total}/>
+					<FlagsRow langs={langs} tos={this.props.tos} levels={this.props.levels} total={total}/>
 					{rows}
 				</table>
-				<GridLegend langs={langs} courses={courses} combos={this.props.combos} total={this.props.total}/>
+				<GridLegend total={total}/>
 				{phases}
 			</div>
 		);
 	}
 });
 
+// bootstrap from globals in model.js
 React.renderComponent(
-	<Grid langs={languages} courses={courses} tos={tos} combos={data.directions} total={total}/>,
+	<Grid langs={langs} courses={courses} tos={tos} total={total}/>,
 	document.body
 );
