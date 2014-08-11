@@ -1,4 +1,17 @@
 /** @jsx React.DOM */
+
+// utils
+
+var getBackgroundGradient = function(stops, direction) {
+	direction = direction || 'to right';
+
+	var gradient = stops.reduce(function(a, b) {
+		return a + ', ' + b[0] + ' ' + b[1] + '%';
+	}, direction);
+
+	return 'linear-gradient(' + gradient + ')';
+};
+
 var CornerCell = React.createClass({
 	render: function() {
 		var total = this.props.total;
@@ -11,6 +24,15 @@ var CornerCell = React.createClass({
 				<Skills finished={total.finished} total={total.total} gold={total.gold} date={total.date}/>
 			</th>
 		);
+	}
+});
+
+// TODO
+var ProgressBar = React.createClass({
+	render: function() {
+		<div className="progress" style={style} title={title}>
+			{content}
+		</div>
 	}
 });
 
@@ -29,19 +51,25 @@ var Skills = React.createClass({
 
 		var gold = this.props.gold;
 		var finished = this.props.finished;
-		// TODO
-		var color = total == finished ? '#1493D1' : '#1493D1';
 
 		// percentages
 		var goldP = Math.floor(gold / total * 100);
 		var finishedP = Math.floor(finished / total * 100);
 
-		// gradients
-		var goldS = '#FFC200 0%, #FFC200 ' + goldP + '%';
-		var finishedS = color + ' ' + goldP + '%, ' + color + ' ' + finishedP + '%, transparent ' + finishedP + '%';
+		// gradient
+		var goldColor = '#FFC200';
+		var fillColor = '#1493D1';
+		var stops = [
+			[goldColor, 0],
+			[goldColor, goldP],
+			[fillColor, goldP],
+			[fillColor, finishedP],
+			['transparent', finishedP],
+			['transparent', 100]
+		];
 
 		var styles = {
-			backgroundImage: 'linear-gradient(to right, ' + goldS + ', ' + finishedS + ', transparent 100%)',
+			backgroundImage: getBackgroundGradient(stops),
 			height: '12px'
 		};
 
@@ -171,8 +199,16 @@ var TopFlagCell = React.createClass({
 			to = this.props.to;
 			percent = Math.floor(to.currentXp / to.ceilXp * 100);
 		}
+		// gradient
+		var gold = '#FFC200';
+		var stops = [
+			[gold, 0],
+			[gold, percent],
+			['transparent', percent],
+			['transparent', 100]
+		];
 		var style = {
-			backgroundImage: 'linear-gradient(to right, #FFC200 0%, #FFC200 ' + percent + '%, transparent ' + (percent)+ '%, transparent 100%)',
+			backgroundImage: getBackgroundGradient(stops)
 		};
 
 		return (
