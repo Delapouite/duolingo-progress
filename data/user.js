@@ -1,4 +1,4 @@
-var delapouite = {
+var user = {
     "fr": {
         "en": {
             "finished": 58,

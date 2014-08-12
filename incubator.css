@@ -28,15 +28,18 @@ td a {
 	text-decoration: none;
 }
 .phase1 {
-	background-color: #e34335 !important;
+	background-color: #E34335 !important;
 }
 .phase2 {
-	background-color: #ff8a1c !important;
+	background-color: #FF8A1C !important;
 }
 .phase3 {
 	background-color: #7AC70C !important;
 }
 .phase4 {
+	background-color: #1493D1 !important;
+}
+.phase5 {
 	background-color: #FFC200 !important;
 }
 .impossible {
@@ -46,9 +49,13 @@ td a {
 	background-color: #1493D1 !important;
 }
 .legend {
-	display: inline-block;
-	padding: 3px;
-	width: 19%;
+	display: flex;
+	margin-bottom: 1em;
+}
+.legend div {
+	flex: 1;
+	padding: 0.5em;
+	text-align: center;
 }
 .gold {
 	background: #FFC200;
@@ -61,14 +68,12 @@ td a {
 	background: white;
 	color: #333;
 	margin: 2px;
+	min-height: 12px;
 	padding: 2px 0;
-}
-.total-xp {
-	margin-top: 1em;
 }
 /* imported */
 .flag {
-	background-image: url(flags.svg);
+	background-image: url(images/flags.svg);
 	background-size: 1120px auto;
 	height: 88px;
 	width: 88px;
@@ -164,7 +169,7 @@ td a {
 	background-position:-112px -672px
 }
 .owl {
-	background-image: url(owls.svg);
+	background-image: url(images/owls.svg);
 	background-position: 50px;
 	background-size: 1000px auto;
 }

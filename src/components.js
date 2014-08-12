@@ -1,38 +1,41 @@
 /** @jsx React.DOM */
 
-// utils
+// const colors
 
-var getBackgroundGradient = function(stops, direction) {
-	direction = direction || 'to right';
+var GOLD = '#FFC200';
+var BLUE = '#1493D1';
+var WHITE = '#FFF';
 
-	var gradient = stops.reduce(function(a, b) {
-		return a + ', ' + b[0] + ' ' + b[1] + '%';
-	}, direction);
+// cell components
 
-	return 'linear-gradient(' + gradient + ')';
-};
+var ProgressBar = React.createClass({
+	getBackgroundGradient: function(stops, direction) {
+		direction = direction || 'to right';
 
-var CornerCell = React.createClass({
+		var gradient = stops.reduce(function(a, b) {
+			var color = b;
+			var percentage = '';
+			// long form
+			if (typeof b[1] == 'number') {
+				color = b[0];
+				percentage = ' ' + b[1] + '%';
+			}
+
+			return a + ', ' + color + percentage;
+		}, direction);
+
+		return 'linear-gradient(' + gradient + ')';
+	},
 	render: function() {
-		var total = this.props.total;
+		var style = {
+			backgroundImage: this.getBackgroundGradient(this.props.stops),
+		};
 
 		return (
-			<th>
-				<div>To ></div>
-				<div>From</div>
-				<div className="total-xp">{total.xp} XP</div>
-				<Skills finished={total.finished} total={total.total} gold={total.gold} date={total.date}/>
-			</th>
+			<div className="progress" style={style} title={this.props.title}>
+				{this.props.content}
+			</div>
 		);
-	}
-});
-
-// TODO
-var ProgressBar = React.createClass({
-	render: function() {
-		<div className="progress" style={style} title={title}>
-			{content}
-		</div>
 	}
 });
 
@@ -57,29 +60,37 @@ var Skills = React.createClass({
 		var finishedP = Math.floor(finished / total * 100);
 
 		// gradient
-		var goldColor = '#FFC200';
-		var fillColor = '#1493D1';
 		var stops = [
-			[goldColor, 0],
-			[goldColor, goldP],
-			[fillColor, goldP],
-			[fillColor, finishedP],
-			['transparent', finishedP],
-			['transparent', 100]
+			GOLD,
+			[GOLD, goldP],
+			[BLUE, goldP],
+			[BLUE, finishedP],
+			[WHITE, finishedP],
+			WHITE
 		];
-
-		var styles = {
-			backgroundImage: getBackgroundGradient(stops),
-			height: '12px'
-		};
 
 		gold = gold ? (<span className="gold">{gold}</span>) : '';
 
 		return (
 			<div className="skills">
-				<div className="progress" style={styles} title={date + ' ' + goldP + '% ' + finishedP + '%'}/>
-				{gold} {finished} / {total}
+				<ProgressBar stops={stops} title={date + ' ' + goldP + '% ' + finishedP + '%'}/>
+				{gold} {finished}/{total}
 			</div>
+		);
+	}
+});
+
+// cells
+
+var TotalCell = React.createClass({
+	render: function() {
+		var total = this.props.total;
+
+		return (
+			<th>
+				<div className="total-xp">{total.xp} XP</div>
+				<Skills finished={total.finished} total={total.total} gold={total.gold} date={total.date}/>
+			</th>
 		);
 	}
 });
@@ -190,48 +201,69 @@ var FlagCell = React.createClass({
 	}
 });
 
-var TopFlagCell = React.createClass({
+var ToCell = React.createClass({
 	render: function() {
-		var lang = this.props.lang;
-		var to = {}
-		var percent = 0;
-		if (this.props.to) {
-			to = this.props.to;
-			percent = Math.floor(to.currentXp / to.ceilXp * 100);
+		if (!this.props.to) {
+			return <th></th>
 		}
+		var lang = this.props.lang;
+		var to = this.props.to;
+
+		percent = Math.floor(to.currentXp / to.ceilXp * 100);
+		content = to.currentXp + '/' + to.ceilXp;
 		// gradient
-		var gold = '#FFC200';
 		var stops = [
-			[gold, 0],
-			[gold, percent],
-			['transparent', percent],
-			['transparent', 100]
+			GOLD,
+			[GOLD, percent],
+			[WHITE, percent],
+			WHITE
 		];
-		var style = {
-			backgroundImage: getBackgroundGradient(stops)
-		};
 
 		return (
 			<th>
-				<div className={'flag flag-' + lang} title={lang}></div>
-				<div>{to.totalXp} XP</div>
-				<div>Level {to.currentLevel}</div>
-				<div className="progress" style={style}>{to.currentXp}/{to.ceilXp}</div>
+				<div className="to">
+					<div>{to.totalXp} XP</div>
+					<div>Level {to.currentLevel}</div>
+					<ProgressBar stops={stops} content={content}/>
+				</div>
 			</th>
 		);
 	}
 });
 
-var FlagsRow = React.createClass({
+// rows
+
+// in header
+var TosRow = React.createClass({
 	render: function() {
-		var tos = this.props.tos;
-		var flagCells = this.props.langs.map(function(lang) {
-			return <TopFlagCell key={lang} lang={lang} to={tos[lang]}/>
+		var tos = this.props.total.tos;
+		var toCells = this.props.langs.map(function(lang) {
+			return <ToCell key={lang} lang={lang} to={tos[lang]}/>
 		});
 
 		return (
 			<tr className="flags-row">
-				<CornerCell total={this.props.total}/>
+				<TotalCell total={this.props.total}/>
+				{toCells}
+			</tr>
+		);
+	}
+});
+
+// in header
+var FlagsRow = React.createClass({
+	render: function() {
+		var flagCells = this.props.langs.map(function(lang) {
+			return <FlagCell key={lang} lang={lang}/>
+		});
+
+		return (
+			<tr className="flags-row">
+				<th>
+					<div>To ></div>
+					<div>From</div>
+					<div>^</div>
+				</th>
 				{flagCells}
 			</tr>
 		);
@@ -252,37 +284,36 @@ var Row = React.createClass({
 
 		return (
 			<tr>
-				<FlagCell lang={from}/>
+				<FlagCell key={from} lang={from}/>
 				{cells}
 			</tr>
 		);
 	}
 });
 
-var GridLegend = React.createClass({
+var GridHeader = React.createClass({
 	render: function() {
-		var total = this.props.total;
-
 		return (
-			<div className="legend">
-				{total.releasedCourses}/{total.coursesCount} courses
-			</div>
+			<thead>
+				<FlagsRow langs={this.props.langs}/>
+				<TosRow langs={this.props.langs} total={this.props.total}/>
+			</thead>
 		);
 	}
 });
 
-// below the grid
+// above the grid
 var Phase = React.createClass({
 	render: function() {
 		return (
-			<div className={'legend phase' + this.props.phase}>
+			<div className={'phase' + this.props.phase}>
 				{this.props.courses} courses in phase {this.props.phase}
 			</div>
 		);
 	}
 });
 
-// table + legend
+// legend + table
 var Grid = React.createClass({
 	render: function() {
 		var langs = this.props.langs;
@@ -290,21 +321,23 @@ var Grid = React.createClass({
 		var total = this.props.total;
 
 		// children
-		var rows = langs.map(function(lang) {
-			return <Row key={lang} lang={lang} langs={langs} courses={courses}/>
-		});
 		var phases = Object.keys(total.phases).map(function(phase) {
 			return <Phase key={phase} phase={phase} courses={total.phases[phase]}/>
+		});
+		var rows = langs.map(function(lang) {
+			return <Row key={lang} lang={lang} langs={langs} courses={courses}/>
 		});
 
 		return (
 			<div>
+				<div className="legend">
+					<div>{total.releasedCourses}/{total.coursesCount} courses</div>
+					{phases}
+				</div>
 				<table>
-					<FlagsRow langs={langs} tos={this.props.tos} levels={this.props.levels} total={total}/>
-					{rows}
+					<GridHeader langs={langs} total={total}/>
+					<tbody>{rows}</tbody>
 				</table>
-				<GridLegend total={total}/>
-				{phases}
 			</div>
 		);
 	}
@@ -312,6 +345,6 @@ var Grid = React.createClass({
 
 // bootstrap from globals in model.js
 React.renderComponent(
-	<Grid langs={langs} courses={courses} tos={tos} total={total}/>,
+	<Grid langs={langs} courses={courses} total={total}/>,
 	document.body
 );
