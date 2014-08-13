@@ -287,8 +287,8 @@ var GridHeader = React.createClass({
 	render: function() {
 		return (
 			<thead>
-				<FlagsRow langs={this.props.langs}/>
 				<TosRow langs={this.props.langs} total={this.props.total}/>
+				<FlagsRow langs={this.props.langs}/>
 			</thead>
 		);
 	}
