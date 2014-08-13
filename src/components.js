@@ -159,7 +159,7 @@ var Cell = React.createClass({
 		if (this.state.highlighted) {
 			className += ' highlighted';
 		}
-		if (course.finished && course.finished === course.total) {
+		if (course.completed) {
 			className += ' owl owl-' + to;
 		}
 
@@ -237,14 +237,13 @@ var ToCell = React.createClass({
 var TosRow = React.createClass({
 	render: function() {
 		var tos = this.props.total.tos;
-		var toCells = this.props.langs.map(function(lang) {
-			return <ToCell key={lang} lang={lang} to={tos[lang]}/>
-		});
 
 		return (
 			<tr className="flags-row">
 				<TotalCell total={this.props.total}/>
-				{toCells}
+				{this.props.langs.map(function(lang) {
+					return <ToCell key={lang} lang={lang} to={tos[lang]}/>
+				})}
 			</tr>
 		);
 	}
@@ -253,10 +252,6 @@ var TosRow = React.createClass({
 // in header
 var FlagsRow = React.createClass({
 	render: function() {
-		var flagCells = this.props.langs.map(function(lang) {
-			return <FlagCell key={lang} lang={lang}/>
-		});
-
 		return (
 			<tr className="flags-row">
 				<th>
@@ -264,7 +259,9 @@ var FlagsRow = React.createClass({
 					<div>From</div>
 					<div>^</div>
 				</th>
-				{flagCells}
+				{this.props.langs.map(function(lang) {
+					return <FlagCell key={lang} lang={lang}/>
+				})}
 			</tr>
 		);
 	}
@@ -273,19 +270,14 @@ var FlagsRow = React.createClass({
 var Row = React.createClass({
 	render: function() {
 		var from = this.props.lang;
-		var courses = this.props.courses;
-		var cells = this.props.langs.map(function(to) {
-			var course;
-			if (courses[from] && courses[from][to]) {
-				course = courses[from][to];
-			}
-			return <Cell key={from + to} from={from} to={to} course={course}/>
-		});
+		var courses = this.props.courses || {};
 
 		return (
 			<tr>
 				<FlagCell key={from} lang={from}/>
-				{cells}
+				{this.props.langs.map(function(to) {
+					return <Cell key={from + to} from={from} to={to} course={courses[to]}/>
+				})}
 			</tr>
 		);
 	}
@@ -305,9 +297,14 @@ var GridHeader = React.createClass({
 // above the grid
 var Phase = React.createClass({
 	render: function() {
+		var phase = this.props.phase;
+		var coursesCount = this.props.courses.filter(function(course) {
+			// TODO
+			return course.phase == phase || (course.finished && phase == 4) || (course.completed && phase == 5);
+		}).length;
 		return (
-			<div className={'phase' + this.props.phase}>
-				{this.props.courses} courses in phase {this.props.phase}
+			<div className={'phase' + phase}>
+				{coursesCount} courses in phase {phase}
 			</div>
 		);
 	}
@@ -320,23 +317,21 @@ var Grid = React.createClass({
 		var courses = this.props.courses;
 		var total = this.props.total;
 
-		// children
-		var phases = Object.keys(total.phases).map(function(phase) {
-			return <Phase key={phase} phase={phase} courses={total.phases[phase]}/>
-		});
-		var rows = langs.map(function(lang) {
-			return <Row key={lang} lang={lang} langs={langs} courses={courses}/>
-		});
-
 		return (
 			<div>
 				<div className="legend">
-					<div>{total.releasedCourses}/{total.coursesCount} courses</div>
-					{phases}
+					<div>{courses.list.length}/{langs.length * (langs.length - 1)} courses</div>
+					{[1, 2, 3, 4, 5].map(function(phase) {
+						return <Phase key={phase} phase={phase} courses={courses.list}/>
+					})}
 				</div>
 				<table>
 					<GridHeader langs={langs} total={total}/>
-					<tbody>{rows}</tbody>
+					<tbody>
+						{langs.map(function(lang) {
+							return <Row key={lang} lang={lang} langs={langs} courses={courses.tree[lang]}/>
+						})}
+					</tbody>
 				</table>
 			</div>
 		);
