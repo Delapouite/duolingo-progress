@@ -55,13 +55,14 @@ courses.list.forEach(function(course) {
 			total.xp += +u.xp;
 		}
 
+		// only keep best data
 		if (+total.tos[to].totalXp < u.xp) {
 			total.tos[to].totalXp = u.xp;
-		}
-		if (u.currentLevel) {
-			total.tos[to].currentXp = u.levelProgress.split('/')[0];
-			total.tos[to].ceilXp = u.levelProgress.split('/')[1];
-			total.tos[to].currentLevel = u.currentLevel;
+			if (u.currentLevel) {
+				total.tos[to].currentXp = u.levelProgress.split('/')[0];
+				total.tos[to].ceilXp = u.levelProgress.split('/')[1];
+				total.tos[to].currentLevel = u.currentLevel;
+			}
 		}
 
 		// skills
