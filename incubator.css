@@ -71,7 +71,8 @@ td a {
 	min-height: 12px;
 	padding: 2px 0;
 }
-.lang-total {
+.cell-spacer {
+	min-height: 112px;
 	min-width: 112px;
 }
 /* imported */

@@ -39,6 +39,7 @@ var ProgressBar = React.createClass({
 	}
 });
 
+// progress bar + plain numbers
 var Skills = React.createClass({
 	render: function() {
 		var total = this.props.total;
@@ -69,12 +70,12 @@ var Skills = React.createClass({
 			WHITE
 		];
 
-		gold = gold ? (<span className="gold">{gold}</span>) : '';
-
 		return (
 			<div className="skills">
-				<ProgressBar stops={stops} title={date + ' ' + goldP + '% ' + finishedP + '%'}/>
-				{gold} {finished}/{total}
+				<ProgressBar
+					stops={stops}
+					content={gold + ' ' + finished + '/'+ total}
+					title={date + ' ' + goldP + '% ' + finishedP + '%'}/>
 			</div>
 		);
 	}
@@ -82,19 +83,21 @@ var Skills = React.createClass({
 
 // cells
 
+// top left corner
 var TotalCell = React.createClass({
 	render: function() {
 		var total = this.props.total;
 
 		return (
 			<th>
-				<div className="total-xp">{total.xp} xp</div>
 				<Skills finished={total.finished} total={total.total} gold={total.gold} date={total.date}/>
+				<div className="total-xp">{total.xp} xp</div>
 			</th>
 		);
 	}
 });
 
+// course or emtpy
 var Cell = React.createClass({
 	getCombo: function() {
 		if (this.props.from <= this.props.to) {
@@ -171,12 +174,10 @@ var Cell = React.createClass({
 		if (course.learner_count) {
 			learners = <div className="learners">{course.learner_count.learner_string}</div>
 		}
-		var level;
 		var progress;
 		if (course.currentLevel) {
-			level = <div className="level">{course.currentLevel} Lvl</div>
 			var percent = Math.floor(course.currentXp / course.ceilXp * 100);
-			var progressContent = course.currentXp + '/' + course.ceilXp;
+			var progressTitle = course.currentXp + '/' + course.ceilXp;
 			// gradient
 			var stops = [
 				GOLD,
@@ -184,7 +185,7 @@ var Cell = React.createClass({
 				[WHITE, percent],
 				WHITE
 			];
-			progress = <ProgressBar stops={stops} content={progressContent}/>
+			progress = <ProgressBar stops={stops} content={'Level ' + course.currentLevel} title={progressTitle}/>
 		}
 		var xp;
 		if (course.xp) {
@@ -201,7 +202,6 @@ var Cell = React.createClass({
 					{percentage}
 					{learners}
 					<Skills finished={course.finished} total={course.total} gold={course.gold} date={course.date}/>
-					{level}
 					{progress}
 					{xp}
 					{words}
@@ -226,14 +226,15 @@ var FlagCell = React.createClass({
 // froms and tos
 var LangTotalCell = React.createClass({
 	render: function() {
-		if (!this.props.total) {
+		if (!this.props.total || !this.props.total.totalXp) {
 			return <th></th>
 		}
 		var total = this.props.total;
 
 		return (
 			<th>
-				<div className="lang-total">{total.totalXp} xp</div>
+				<div>Level {total.bestLevel}</div>
+				<div>{total.totalXp} xp</div>
 			</th>
 		);
 	}
@@ -249,7 +250,7 @@ var TosRow = React.createClass({
 		return (
 			<tr className="flags-row">
 				<TotalCell total={this.props.total}/>
-				<th></th>
+				<th><div className="cell-spacer"></div></th>
 				{this.props.langs.map(function(lang) {
 					return <LangTotalCell key={lang} lang={lang} total={tos[lang]}/>
 				})}
@@ -263,7 +264,7 @@ var FlagsRow = React.createClass({
 	render: function() {
 		return (
 			<tr className="flags-row">
-				<th></th>
+				<th><div className="cell-spacer"></div></th>
 				<th>
 					<div>To ></div>
 					<div>From</div>

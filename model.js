@@ -33,12 +33,14 @@ courses.list.forEach(function(course) {
 	// prepare tos
 	if (!total.froms[from]) {
 		total.froms[from] = {
-			totalXp: 0
+			totalXp: 0,
+			bestLevel: 0
 		};
 	}
 	if (!total.tos[to]) {
 		total.tos[to] = {
-			totalXp: 0
+			totalXp: 0,
+			bestLevel: 0
 		};
 	}
 
@@ -67,6 +69,12 @@ courses.list.forEach(function(course) {
 		// lang totals
 		total.froms[from].totalXp += +u.xp;
 		total.tos[to].totalXp += +u.xp;
+		if (+u.currentLevel > total.froms[from].bestLevel) {
+			total.froms[from].bestLevel = +u.currentLevel;
+		}
+		if (+u.currentLevel > total.tos[to].bestLevel) {
+			total.tos[to].bestLevel = +u.currentLevel;
+		}
 
 		// skills
 		total.finished += u.finished;
