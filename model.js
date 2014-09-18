@@ -41,6 +41,7 @@ courses.list.forEach(function(course) {
 			course.completed = true;
 		}
 
+		course.xp = u.xp;
 		course.words = u.words;
 		course.date = u.date;
 

@@ -76,6 +76,7 @@ td a {
 	background-image: url(images/flags.svg);
 	background-size: 1120px auto;
 	height: 88px;
+	margin: 12px;
 	width: 88px;
 }
 .flag-fr{

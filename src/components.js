@@ -88,7 +88,7 @@ var TotalCell = React.createClass({
 
 		return (
 			<th>
-				<div className="total-xp">{total.xp} XP</div>
+				<div className="total-xp">{total.xp} xp</div>
 				<Skills finished={total.finished} total={total.total} gold={total.gold} date={total.date}/>
 			</th>
 		);
@@ -175,6 +175,10 @@ var Cell = React.createClass({
 		if (course.words) {
 			words = <div className="words">{course.words}w</div>
 		}
+		var xp;
+		if (course.xp) {
+			xp = <div className="xp">{course.xp} xp</div>
+		}
 
 		return (
 			<td onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className={className}>
@@ -182,6 +186,7 @@ var Cell = React.createClass({
 					{percentage}
 					{learners}
 					<Skills finished={course.finished} total={course.total} gold={course.gold} date={course.date}/>
+					{xp}
 					{words}
 				</a>
 			</td>
@@ -222,7 +227,7 @@ var ToCell = React.createClass({
 		return (
 			<th>
 				<div className="to">
-					<div>{to.totalXp} XP</div>
+					<div>{to.totalXp} xp</div>
 					<div>Level {to.currentLevel}</div>
 					<ProgressBar stops={stops} content={content}/>
 				</div>
