@@ -15,6 +15,7 @@ var courses = {
 
 // main counters
 var total = {
+	froms: {},
 	tos: {},
 	xp: 0,
 	// skills
@@ -29,6 +30,18 @@ courses.list.forEach(function(course) {
 	var from = course.from = course.from_language_id;
 	var to = course.to = course.learning_language_id;
 
+	// prepare tos
+	if (!total.froms[from]) {
+		total.froms[from] = {
+			totalXp: 0
+		};
+	}
+	if (!total.tos[to]) {
+		total.tos[to] = {
+			totalXp: 0
+		};
+	}
+
 	// fuse user data
 	if (user[from] && user[from][to]) {
 		var u = user[from][to];
@@ -41,35 +54,25 @@ courses.list.forEach(function(course) {
 			course.completed = true;
 		}
 
+		// levels
+		course.currentLevel = u.currentLevel;
 		course.xp = u.xp;
+		// TODO remove split on next full user data update
+		course.currentXp = u.levelProgress.split('/')[0];
+		course.ceilXp = u.levelProgress.split('/')[1];
+
 		course.words = u.words;
 		course.date = u.date;
 
-		// prepare tos
-		if (!total.tos[to]) {
-			total.tos[to] = {
-				totalXp: 0,
-				currentXp: 0,
-				ceilXp: 0,
-				currentLevel: 0
-			};
-			total.xp += +u.xp;
-		}
-
-		// only keep best data
-		if (+total.tos[to].totalXp < u.xp) {
-			total.tos[to].totalXp = u.xp;
-			if (u.currentLevel) {
-				total.tos[to].currentXp = u.levelProgress.split('/')[0];
-				total.tos[to].ceilXp = u.levelProgress.split('/')[1];
-				total.tos[to].currentLevel = u.currentLevel;
-			}
-		}
+		// lang totals
+		total.froms[from].totalXp += +u.xp;
+		total.tos[to].totalXp += +u.xp;
 
 		// skills
 		total.finished += u.finished;
 		total.total += u.total;
 		total.gold += u.gold;
+		total.xp += +u.xp;
 	}
 
 	// build tree

@@ -71,6 +71,9 @@ td a {
 	min-height: 12px;
 	padding: 2px 0;
 }
+.lang-total {
+	min-width: 112px;
+}
 /* imported */
 .flag {
 	background-image: url(images/flags.svg);

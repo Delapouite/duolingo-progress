@@ -171,13 +171,28 @@ var Cell = React.createClass({
 		if (course.learner_count) {
 			learners = <div className="learners">{course.learner_count.learner_string}</div>
 		}
-		var words;
-		if (course.words) {
-			words = <div className="words">{course.words}w</div>
+		var level;
+		var progress;
+		if (course.currentLevel) {
+			level = <div className="level">{course.currentLevel} Lvl</div>
+			var percent = Math.floor(course.currentXp / course.ceilXp * 100);
+			var progressContent = course.currentXp + '/' + course.ceilXp;
+			// gradient
+			var stops = [
+				GOLD,
+				[GOLD, percent],
+				[WHITE, percent],
+				WHITE
+			];
+			progress = <ProgressBar stops={stops} content={progressContent}/>
 		}
 		var xp;
 		if (course.xp) {
 			xp = <div className="xp">{course.xp} xp</div>
+		}
+		var words;
+		if (course.words) {
+			words = <div className="words">{course.words} w</div>
 		}
 
 		return (
@@ -186,6 +201,8 @@ var Cell = React.createClass({
 					{percentage}
 					{learners}
 					<Skills finished={course.finished} total={course.total} gold={course.gold} date={course.date}/>
+					{level}
+					{progress}
 					{xp}
 					{words}
 				</a>
@@ -206,31 +223,17 @@ var FlagCell = React.createClass({
 	}
 });
 
-var ToCell = React.createClass({
+// froms and tos
+var LangTotalCell = React.createClass({
 	render: function() {
-		if (!this.props.to) {
+		if (!this.props.total) {
 			return <th></th>
 		}
-		var lang = this.props.lang;
-		var to = this.props.to;
-
-		percent = Math.floor(to.currentXp / to.ceilXp * 100);
-		content = to.currentXp + '/' + to.ceilXp;
-		// gradient
-		var stops = [
-			GOLD,
-			[GOLD, percent],
-			[WHITE, percent],
-			WHITE
-		];
+		var total = this.props.total;
 
 		return (
 			<th>
-				<div className="to">
-					<div>{to.totalXp} xp</div>
-					<div>Level {to.currentLevel}</div>
-					<ProgressBar stops={stops} content={content}/>
-				</div>
+				<div className="lang-total">{total.totalXp} xp</div>
 			</th>
 		);
 	}
@@ -246,8 +249,9 @@ var TosRow = React.createClass({
 		return (
 			<tr className="flags-row">
 				<TotalCell total={this.props.total}/>
+				<th></th>
 				{this.props.langs.map(function(lang) {
-					return <ToCell key={lang} lang={lang} to={tos[lang]}/>
+					return <LangTotalCell key={lang} lang={lang} total={tos[lang]}/>
 				})}
 			</tr>
 		);
@@ -259,6 +263,7 @@ var FlagsRow = React.createClass({
 	render: function() {
 		return (
 			<tr className="flags-row">
+				<th></th>
 				<th>
 					<div>To ></div>
 					<div>From</div>
@@ -275,10 +280,12 @@ var FlagsRow = React.createClass({
 var Row = React.createClass({
 	render: function() {
 		var from = this.props.lang;
+		var froms = this.props.total.froms;
 		var courses = this.props.courses || {};
 
 		return (
 			<tr>
+				<LangTotalCell lang={from} total={froms[from]}/>
 				<FlagCell key={from} lang={from}/>
 				{this.props.langs.map(function(to) {
 					return <Cell key={from + to} from={from} to={to} course={courses[to]}/>
@@ -334,7 +341,7 @@ var Grid = React.createClass({
 					<GridHeader langs={langs} total={total}/>
 					<tbody>
 						{langs.map(function(lang) {
-							return <Row key={lang} lang={lang} langs={langs} courses={courses.tree[lang]}/>
+							return <Row key={lang} lang={lang} langs={langs} courses={courses.tree[lang]} total={total}/>
 						})}
 					</tbody>
 				</table>
