@@ -59,9 +59,8 @@ courses.list.forEach(function(course) {
 		// levels
 		course.currentLevel = u.currentLevel;
 		course.xp = u.xp;
-		// TODO remove split on next full user data update
-		course.currentXp = u.levelProgress.split('/')[0];
-		course.ceilXp = u.levelProgress.split('/')[1];
+		course.currentXp = u.currentXp;
+		course.ceilXp = u.ceilXp;
 
 		course.words = u.words;
 		course.date = u.date;
