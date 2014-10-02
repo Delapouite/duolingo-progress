@@ -252,12 +252,12 @@ var TosRow = React.createClass({
 		var tos = this.props.total.tos;
 
 		return (
-			<tr className="flags-row">
+			<tr>
 				<TotalCell total={this.props.total}/>
 				<th><div className="cell-spacer"></div></th>
-				{this.props.langs.map(function(lang) {
-					return <LangTotalCell key={lang} lang={lang} total={tos[lang]}/>
-				})}
+				{this.props.langs.map((lang) =>
+					<LangTotalCell key={lang} lang={lang} total={tos[lang]}/>
+				)}
 			</tr>
 		);
 	}
@@ -274,9 +274,9 @@ var FlagsRow = React.createClass({
 					<div>From</div>
 					<div>^</div>
 				</th>
-				{this.props.langs.map(function(lang) {
-					return <FlagCell key={lang} lang={lang}/>
-				})}
+				{this.props.langs.map((lang) =>
+					<FlagCell key={lang} lang={lang}/>
+				)}
 			</tr>
 		);
 	}
@@ -292,9 +292,9 @@ var Row = React.createClass({
 			<tr>
 				<LangTotalCell lang={from} total={froms[from]}/>
 				<FlagCell key={from} lang={from}/>
-				{this.props.langs.map(function(to) {
-					return <Cell key={from + to} from={from} to={to} course={courses[to]}/>
-				})}
+				{this.props.langs.map((to) =>
+					<Cell key={from + to} from={from} to={to} course={courses[to]}/>
+				)}
 			</tr>
 		);
 	}
@@ -336,16 +336,16 @@ var Grid = React.createClass({
 			<div>
 				<div className="legend">
 					<div>{courses.list.length}/{langs.length * (langs.length - 1)} courses</div>
-					{[1, 2, 3, 4, 5].map(function(phase) {
-						return <Phase key={phase} phase={phase} courses={courses.list}/>
-					})}
+					{[1, 2, 3, 4, 5].map((phase) =>
+						<Phase key={phase} phase={phase} courses={courses.list}/>
+					)}
 				</div>
 				<table>
 					<GridHeader langs={langs} total={total}/>
 					<tbody>
-						{langs.map(function(lang) {
-							return <Row key={lang} lang={lang} langs={langs} courses={courses.tree[lang]} total={total}/>
-						})}
+						{langs.map((lang) =>
+							<Row key={lang} lang={lang} langs={langs} courses={courses.tree[lang]} total={total}/>
+						)}
 					</tbody>
 				</table>
 			</div>
