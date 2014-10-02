@@ -44,7 +44,7 @@ var ProgressBar = React.createClass({
 // progress bar + plain numbers
 var Skills = React.createClass({
 	render() {
-		var total = this.props.total;
+		var {total} = this.props;
 		if (!total) {
 			return <div className="skills"></div>
 		}
@@ -55,10 +55,9 @@ var Skills = React.createClass({
 			date = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 		}
 
-		var gold = this.props.gold;
-		var finished = this.props.finished;
+		var {gold, finished, locked} = this.props;
 		var unfinished = total - finished;
-		var locked = this.props.locked || unfinished;
+		locked = locked || unfinished;
 		var unlocked = unfinished - locked;
 
 		// percentages
@@ -94,7 +93,7 @@ var Skills = React.createClass({
 // top left corner
 var TotalCell = React.createClass({
 	render() {
-		var total = this.props.total;
+		var {total} = this.props;
 
 		return (
 			<th>
@@ -108,10 +107,8 @@ var TotalCell = React.createClass({
 // course or emtpy
 var Cell = React.createClass({
 	getCombo() {
-		if (this.props.from <= this.props.to) {
-			return this.props.from + this.props.to;
-		}
-		return this.props.to + this.props.from;
+		var {from, to} = this.props;
+		return (from <= to) ? from + to : to + from;
 	},
 	handleMouseEnter() {
 		var event = new CustomEvent('cellEnter', {
@@ -157,8 +154,7 @@ var Cell = React.createClass({
 		document.removeEventListener('cellLeave', this.unHighlight);
 	},
 	render() {
-		var from = this.props.from;
-		var to = this.props.to;
+		var {from, to} = this.props;
 		var course = this.props.course || {};
 
 		var className = '';
@@ -221,7 +217,7 @@ var Cell = React.createClass({
 
 var FlagCell = React.createClass({
 	render() {
-		var lang = this.props.lang;
+		var {lang} = this.props;
 
 		return (
 			<th>
@@ -234,10 +230,10 @@ var FlagCell = React.createClass({
 // froms and tos
 var LangTotalCell = React.createClass({
 	render() {
-		if (!this.props.total || !this.props.total.totalXp) {
+		var {total} = this.props;
+		if (!total || !total.totalXp) {
 			return <th></th>
 		}
-		var total = this.props.total;
 
 		return (
 			<th>
@@ -318,7 +314,7 @@ var GridHeader = React.createClass({
 // above the grid
 var Phase = React.createClass({
 	render() {
-		var phase = this.props.phase;
+		var {phase} = this.props;
 		var coursesCount = this.props.courses.filter(function(course) {
 			// TODO
 			return course.phase == phase || (course.finished && phase == 4) || (course.completed && phase == 5);
@@ -334,9 +330,7 @@ var Phase = React.createClass({
 // legend + table
 var Grid = React.createClass({
 	render() {
-		var langs = this.props.langs;
-		var courses = this.props.courses;
-		var total = this.props.total;
+		var {langs, courses, total} = this.props;
 
 		return (
 			<div>
