@@ -10,7 +10,7 @@ var WHITE = '#FFF';
 // cell components
 
 var ProgressBar = React.createClass({
-	getBackgroundGradient: function(stops, direction) {
+	getBackgroundGradient(stops, direction) {
 		direction = direction || 'to right';
 
 		// build CSS string
@@ -28,7 +28,7 @@ var ProgressBar = React.createClass({
 
 		return 'linear-gradient(' + gradient + ')';
 	},
-	render: function() {
+	render() {
 		var style = {
 			backgroundImage: this.getBackgroundGradient(this.props.stops),
 		};
@@ -43,7 +43,7 @@ var ProgressBar = React.createClass({
 
 // progress bar + plain numbers
 var Skills = React.createClass({
-	render: function() {
+	render() {
 		var total = this.props.total;
 		if (!total) {
 			return <div className="skills"></div>
@@ -93,7 +93,7 @@ var Skills = React.createClass({
 
 // top left corner
 var TotalCell = React.createClass({
-	render: function() {
+	render() {
 		var total = this.props.total;
 
 		return (
@@ -107,13 +107,13 @@ var TotalCell = React.createClass({
 
 // course or emtpy
 var Cell = React.createClass({
-	getCombo: function() {
+	getCombo() {
 		if (this.props.from <= this.props.to) {
 			return this.props.from + this.props.to;
 		}
 		return this.props.to + this.props.from;
 	},
-	handleMouseEnter: function() {
+	handleMouseEnter() {
 		var event = new CustomEvent('cellEnter', {
 			detail: {
 				combo: this.getCombo()
@@ -121,7 +121,7 @@ var Cell = React.createClass({
 		});
 		document.dispatchEvent(event);
 	},
-	handleMouseLeave: function() {
+	handleMouseLeave() {
 		var event = new CustomEvent('cellLeave', {
 			detail: {
 				combo: this.getCombo()
@@ -129,34 +129,34 @@ var Cell = React.createClass({
 		});
 		document.dispatchEvent(event);
 	},
-	highlight: function(event) {
+	highlight(event) {
 		if (event.detail.combo != this.getCombo())
 			return;
 		this.setState({
 			highlighted: true
 		});
 	},
-	unHighlight: function(event) {
+	unHighlight(event) {
 		if (event.detail.combo != this.getCombo())
 			return;
 		this.setState({
 			highlighted: false
 		});
 	},
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			highlighted: false
 		};
 	},
-	componentDidMount: function() {
+	componentDidMount() {
 		document.addEventListener('cellEnter', this.highlight);
 		document.addEventListener('cellLeave', this.unHighlight);
 	},
-	componentWillUnmount: function() {
+	componentWillUnmount() {
 		document.removeEventListener('cellEnter', this.highlight);
 		document.removeEventListener('cellLeave', this.unHighlight);
 	},
-	render: function() {
+	render() {
 		var from = this.props.from;
 		var to = this.props.to;
 		var course = this.props.course || {};
@@ -220,7 +220,7 @@ var Cell = React.createClass({
 });
 
 var FlagCell = React.createClass({
-	render: function() {
+	render() {
 		var lang = this.props.lang;
 
 		return (
@@ -233,7 +233,7 @@ var FlagCell = React.createClass({
 
 // froms and tos
 var LangTotalCell = React.createClass({
-	render: function() {
+	render() {
 		if (!this.props.total || !this.props.total.totalXp) {
 			return <th></th>
 		}
@@ -252,7 +252,7 @@ var LangTotalCell = React.createClass({
 
 // in header
 var TosRow = React.createClass({
-	render: function() {
+	render() {
 		var tos = this.props.total.tos;
 
 		return (
@@ -269,7 +269,7 @@ var TosRow = React.createClass({
 
 // in header
 var FlagsRow = React.createClass({
-	render: function() {
+	render() {
 		return (
 			<tr className="flags-row">
 				<th><div className="cell-spacer"></div></th>
@@ -287,7 +287,7 @@ var FlagsRow = React.createClass({
 });
 
 var Row = React.createClass({
-	render: function() {
+	render() {
 		var from = this.props.lang;
 		var froms = this.props.total.froms;
 		var courses = this.props.courses || {};
@@ -305,7 +305,7 @@ var Row = React.createClass({
 });
 
 var GridHeader = React.createClass({
-	render: function() {
+	render() {
 		return (
 			<thead>
 				<TosRow langs={this.props.langs} total={this.props.total}/>
@@ -317,7 +317,7 @@ var GridHeader = React.createClass({
 
 // above the grid
 var Phase = React.createClass({
-	render: function() {
+	render() {
 		var phase = this.props.phase;
 		var coursesCount = this.props.courses.filter(function(course) {
 			// TODO
@@ -333,7 +333,7 @@ var Phase = React.createClass({
 
 // legend + table
 var Grid = React.createClass({
-	render: function() {
+	render() {
 		var langs = this.props.langs;
 		var courses = this.props.courses;
 		var total = this.props.total;
