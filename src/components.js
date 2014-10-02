@@ -4,6 +4,7 @@
 
 var GOLD = '#FFC200';
 var BLUE = '#1493D1';
+var GREY = '#CCC';
 var WHITE = '#FFF';
 
 // cell components
@@ -12,6 +13,7 @@ var ProgressBar = React.createClass({
 	getBackgroundGradient: function(stops, direction) {
 		direction = direction || 'to right';
 
+		// build CSS string
 		var gradient = stops.reduce(function(a, b) {
 			var color = b;
 			var percentage = '';
@@ -55,10 +57,14 @@ var Skills = React.createClass({
 
 		var gold = this.props.gold;
 		var finished = this.props.finished;
+		var unfinished = total - finished;
+		var locked = this.props.locked || unfinished;
+		var unlocked = unfinished - locked;
 
 		// percentages
 		var goldP = Math.floor(gold / total * 100);
 		var finishedP = Math.floor(finished / total * 100);
+		var unlockedP = Math.floor((finished + unlocked) / total * 100);
 
 		// gradient
 		var stops = [
@@ -67,7 +73,9 @@ var Skills = React.createClass({
 			[BLUE, goldP],
 			[BLUE, finishedP],
 			[WHITE, finishedP],
-			WHITE
+			[WHITE, unlockedP],
+			[GREY, unlockedP],
+			GREY
 		];
 
 		return (
@@ -201,7 +209,7 @@ var Cell = React.createClass({
 				<a href={'http://incubator.duolingo.com/courses/' + to + '/' + from + '/status'}>
 					{percentage}
 					{learners}
-					<Skills finished={course.finished} total={course.total} gold={course.gold} date={course.date}/>
+					<Skills finished={course.finished} locked={course.locked} total={course.total} gold={course.gold} date={course.date}/>
 					{progress}
 					{xp}
 					{words}

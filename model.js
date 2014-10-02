@@ -51,6 +51,7 @@ courses.list.forEach(function(course) {
 		course.finished = u.finished;
 		course.total = u.total;
 		course.gold = u.gold;
+		course.locked = u.locked;
 		// all skills finished
 		if (course.finished && course.finished === course.total) {
 			course.completed = true;
