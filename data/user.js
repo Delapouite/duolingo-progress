@@ -3,50 +3,50 @@ var user = {
         "fr": {
             "finished": 71,
             "total": 71,
-            "gold": 15,
-            "xp": 11626,
-            "currentXp": 1126,
+            "gold": 16,
+            "xp": 11779,
+            "currentXp": 1279,
             "ceilXp": 1500,
             "words": 1866,
             "currentLevel": 17,
-            "levelProgress": "1126/1500",
-            "date": 1414059442820
+            "levelProgress": "1279/1500",
+            "date": 1416221222984
         },
         "es": {
             "finished": 67,
             "total": 67,
-            "gold": 18,
-            "xp": 10044,
-            "currentXp": 1044,
+            "gold": 20,
+            "xp": 10169,
+            "currentXp": 1169,
             "ceilXp": 1500,
             "words": 1586,
             "currentLevel": 16,
-            "levelProgress": "1044/1500",
-            "date": 1414058610578
+            "levelProgress": "1169/1500",
+            "date": 1416220391808
         },
         "pt": {
             "finished": 72,
             "total": 72,
-            "gold": 13,
-            "xp": 7712,
-            "currentXp": 212,
+            "gold": 15,
+            "xp": 7860,
+            "currentXp": 360,
             "ceilXp": 1500,
             "words": 1950,
             "currentLevel": 15,
-            "levelProgress": "212/1500",
-            "date": 1414061521298
+            "levelProgress": "360/1500",
+            "date": 1416221543528
         },
         "it": {
-            "finished": 37,
+            "finished": 38,
             "total": 69,
             "gold": 21,
-            "xp": 3675,
-            "currentXp": 675,
+            "xp": 3851,
+            "currentXp": 851,
             "ceilXp": 900,
-            "words": 1066,
+            "words": 1082,
             "currentLevel": 11,
-            "levelProgress": "675/900",
-            "date": 1414657523750
+            "levelProgress": "851/900",
+            "date": 1416228197124
         },
         "de": {
             "finished": 37,
@@ -66,37 +66,37 @@ var user = {
             "finished": 58,
             "total": 58,
             "gold": 17,
-            "xp": 19002,
-            "currentXp": 2,
+            "xp": 19127,
+            "currentXp": 127,
             "ceilXp": 3500,
             "words": 1422,
             "currentLevel": 22,
-            "levelProgress": "2/3500",
-            "date": 1414481136005
+            "levelProgress": "127/3500",
+            "date": 1416228260778
         },
         "fr": {
             "finished": 68,
             "total": 68,
             "gold": 37,
-            "xp": 13125,
-            "currentXp": 1125,
+            "xp": 13437,
+            "currentXp": 1437,
             "ceilXp": 1500,
             "words": 1848,
             "currentLevel": 18,
-            "levelProgress": "1125/1500",
-            "date": 1414233837780
+            "levelProgress": "1437/1500",
+            "date": 1416298453663
         },
         "pt": {
-            "finished": 23,
+            "finished": 24,
             "total": 69,
-            "gold": 10,
-            "xp": 7886,
-            "currentXp": 386,
+            "gold": 11,
+            "xp": 8033,
+            "currentXp": 533,
             "ceilXp": 1500,
-            "words": 572,
+            "words": 613,
             "currentLevel": 15,
-            "levelProgress": "386/1500",
-            "date": 1414058382241
+            "levelProgress": "533/1500",
+            "date": 1416154987694
         },
         "de": {
             "finished": 3,
@@ -113,14 +113,14 @@ var user = {
         "it": {
             "finished": 6,
             "total": 66,
-            "gold": 2,
-            "xp": 302,
-            "currentXp": 2,
+            "gold": 6,
+            "xp": 410,
+            "currentXp": 110,
             "ceilXp": 150,
-            "words": 101,
+            "words": 124,
             "currentLevel": 5,
-            "levelProgress": "2/150",
-            "date": 1414057024929
+            "levelProgress": "110/150",
+            "date": 1416155706734
         }
     },
     "de": {
@@ -153,66 +153,78 @@ var user = {
         "en": {
             "finished": 17,
             "total": 58,
-            "gold": 6,
-            "xp": 18828,
-            "currentXp": 1828,
-            "ceilXp": 2000,
-            "words": 397,
-            "currentLevel": 21,
-            "levelProgress": "1828/2000",
-            "date": 1414053066615
+            "gold": 10,
+            "xp": 19028,
+            "currentXp": 28,
+            "ceilXp": 3500,
+            "words": 432,
+            "currentLevel": 22,
+            "levelProgress": "28/3500",
+            "date": 1416144761439
         },
         "es": {
             "finished": 23,
             "total": 64,
-            "gold": 8,
-            "xp": 11051,
-            "currentXp": 551,
+            "gold": 10,
+            "xp": 11212,
+            "currentXp": 712,
             "ceilXp": 1500,
-            "words": 589,
+            "words": 620,
             "currentLevel": 17,
-            "levelProgress": "551/1500",
-            "date": 1414053055493
+            "levelProgress": "712/1500",
+            "date": 1416144921639
         }
     },
     "it": {
         "en": {
-            "finished": 20,
+            "finished": 24,
             "total": 58,
             "gold": 11,
-            "xp": 19011,
-            "currentXp": 11,
+            "xp": 19250,
+            "currentXp": 250,
             "ceilXp": 3500,
-            "words": 571,
+            "words": 671,
             "currentLevel": 22,
-            "levelProgress": "11/3500",
-            "date": 1414049408128
+            "levelProgress": "250/3500",
+            "date": 1416144477516
         }
     },
     "fr": {
         "en": {
             "finished": 58,
             "total": 58,
-            "gold": 15,
-            "xp": 18778,
-            "currentXp": 1778,
+            "gold": 17,
+            "xp": 18876,
+            "currentXp": 1876,
             "ceilXp": 2000,
             "words": 1422,
             "currentLevel": 21,
-            "levelProgress": "1778/2000",
-            "date": 1414438491452
+            "levelProgress": "1876/2000",
+            "date": 1416145270074
         },
         "es": {
             "finished": 64,
             "total": 64,
             "gold": 44,
-            "xp": 14092,
-            "currentXp": 592,
+            "xp": 14664,
+            "currentXp": 1164,
             "ceilXp": 1500,
             "words": 1571,
             "currentLevel": 19,
-            "levelProgress": "592/1500",
-            "date": 1414438448533
+            "levelProgress": "1164/1500",
+            "date": 1416511896382
+        },
+        "it": {
+            "finished": 1,
+            "total": 66,
+            "gold": 1,
+            "xp": 52,
+            "currentXp": 52,
+            "ceilXp": 60,
+            "words": 16,
+            "currentLevel": 1,
+            "levelProgress": "52/60",
+            "date": 1415643626762
         }
     }
-}
+};
